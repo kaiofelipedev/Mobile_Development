@@ -20,6 +20,7 @@ export default function RootLayout() {
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
+        <Stack.Screen name='first-page' options={{headerShown: false}}/>
       </Stack>
       <StatusBar style="auto" />
     </ThemeProvider>

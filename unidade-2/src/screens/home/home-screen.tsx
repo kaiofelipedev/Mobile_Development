@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
-import { Text, TextInput, View } from 'react-native';
+import React from 'react'
+import { useState } from 'react';
+import { Text, TextInput, View, Image, ScrollView } from 'react-native';
 import { StyleHome } from './homeStyle';
+import { ButtonHome } from '@/src/components/button/butom-custom';
+import logo from '@/src/assets/logo-react-native.png'
 
 export const Home = () => {
 
@@ -10,23 +13,29 @@ export const Home = () => {
     return (
         <View style={StyleHome.tela}>
 
-            <Text>E-mail</Text>
+            <Image
+                source={logo}
+                style={StyleHome.logoStyle}
+            />
+
+            <Text style={StyleHome.titleImput}>E-mail</Text>
 
             <TextInput
             style={StyleHome.styleInput}
-            placeholder='Email'
+            // placeholder='Email'
             onChangeText={setEmail}
             value={email}
             />
 
-            <Text>Senha</Text>
+            <Text style={StyleHome.titleImput}>Senha</Text>
 
             <TextInput
             style={StyleHome.styleInput}
-            placeholder='Senha'
+            // placeholder='Senha'
             onChangeText={setPassword}
             value={password}
             />
+            <ButtonHome name='Login'/>
         </View>
     )
 }
