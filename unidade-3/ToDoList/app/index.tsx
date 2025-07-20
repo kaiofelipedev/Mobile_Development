@@ -1,10 +1,29 @@
 import { Stack } from 'expo-router';
-import React from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert, ScrollView } from 'react-native';
 
 
 export default function Home() {
+
+    const [text, setText] = useState('')
+    const [list, setList] = useState<string[]>([])
+    // const [list, setList] = useState([])
+
+    const buttonClick = () => {
+
+        if(text.length < 1) {
+            // Alert.alert('Campo vazio!') Não funciona na Web
+            alert('Campo vazio!')
+            return
+        }
+
+        setList([...list, text])
+        setText('')
+
+    }
+
     return (
+
         <View style={styles.container}>
 
             <Stack.Screen
@@ -13,13 +32,35 @@ export default function Home() {
                 }}
             />
 
-            <TextInput style={styles.textInput}/>
+            <TextInput
+                style={styles.textInput}
+                onChangeText={setText}
+                value={text}
+            />
 
-            <TouchableOpacity style={styles.containerButton}>
+            <ScrollView style={styles.scrollView}>
+                {
+                    list.map((item, index) => {
+                        return (
+                            <View
+                                key={item + index}
+                                style={styles.viewItem}
+                            >
+                                <Text style={styles.textItem}>{item}</Text>
+                            </View>
+                        )
+                    })
+                }
+            </ScrollView>
+
+            <TouchableOpacity
+                style={styles.containerButton}
+                onPress={buttonClick}>
 
                 <Text style={styles.textButton}>Adicionar</Text>
 
             </TouchableOpacity>
+
         </View>
     )
 }
@@ -52,5 +93,24 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 18,
         fontWeight: 'bold'
+    },
+    viewItem: {
+        width: '100%',
+        height: 50,
+        borderWidth: 1,
+        borderColor: '#eee',
+        borderRadius: 5,
+        justifyContent: 'center',
+        paddingLeft: 14,
+        marginVertical: 7
+    },
+    textItem: {
+        fontWeight: 'bold',
+        letterSpacing: 0.5
+    },
+    scrollView: {
+        width: '90%',
+        margin: 'auto',
+        marginBottom: 90
     }
 })
