@@ -5,6 +5,8 @@ import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
+import { store } from '@/src/store';
+import { Provider } from 'react-redux';
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
@@ -18,12 +20,15 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={DefaultTheme}>
-      <Stack>
-        {/* <Stack.Screen name="index" options={{ headerShown: false }} /> */}
-        <Stack.Screen name="index" options={{ headerShown: false }}/>
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider value={DefaultTheme}>
+        <Stack>
+          {/* <Stack.Screen name="index" options={{ headerShown: false }} /> */}
+          <Stack.Screen name="index" options={{ headerShown: false }}/>
+        </Stack>
+        <StatusBar style="auto" />
+      </ThemeProvider>
+    </Provider>
+    
   );
 }
